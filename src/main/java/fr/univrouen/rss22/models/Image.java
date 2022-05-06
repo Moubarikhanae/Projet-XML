@@ -1,39 +1,40 @@
 package fr.univrouen.rss22.models;
 
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import fr.univrouen.rss22.enums.TypeImage;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
-@XmlRootElement(name="image")
-@XmlAccessorType(XmlAccessType.FIELD)
+@JacksonXmlRootElement(localName = "Image")
 @Entity
 @Table(name = "image")
 
-public class Image {
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long Id;
 
     @Getter @Setter
-    @XmlAttribute(name="type")
+    @JacksonXmlProperty(isAttribute = true)
     private TypeImage type;
 
     @Getter @Setter
-    @XmlAttribute(name="href")
+    @JacksonXmlProperty(isAttribute = true)
     private String href;
 
     @Getter @Setter
-    @XmlAttribute(name="alt")
+    @JacksonXmlProperty(isAttribute = true)
     private String alt;
 
     @Getter @Setter
-    @XmlAttribute(name="length")
+    @JacksonXmlProperty(isAttribute = true)
     private int length;
 
     public Image() {
@@ -55,4 +56,5 @@ public class Image {
                 ", length=" + length +
                 '}';
     }
+
 }

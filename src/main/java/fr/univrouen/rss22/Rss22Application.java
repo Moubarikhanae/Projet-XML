@@ -23,7 +23,7 @@ public class Rss22Application {
 
         jaxbObjectToXML(person);
        */
-        String personFile = "person.xml";
+       /* String personFile = "person.xml";
         // create JAXB context and unmarshaller
         var context = JAXBContext.newInstance(Person.class);
         var um = context.createUnmarshaller();
@@ -31,7 +31,7 @@ public class Rss22Application {
         var person = (Person) um.unmarshal(new InputStreamReader(
                 new FileInputStream(personFile), StandardCharsets.UTF_8));
             System.out.println(person);
-
+*/
 
     }
 

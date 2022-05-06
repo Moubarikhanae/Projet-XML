@@ -1,59 +1,61 @@
 package fr.univrouen.rss22.models;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@XmlRootElement(name="item")
-@XmlAccessorType(XmlAccessType.FIELD)
+@JacksonXmlRootElement(localName = "item")
 @Entity
 @Table(name="item")
-public class Item {
+public class Item implements Serializable {
 
     @Getter @Setter
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(length=36,columnDefinition = "VARCHAR(36)")
+    @Type(type = "uuid-char")
+    @JacksonXmlProperty
     private UUID guid;
 
-    @XmlElement(name="title")
+    @JacksonXmlProperty
+    @Getter @Setter
     @Column(length = 64)
     private String title;
 
-    @XmlElement(name="category")
+    @JacksonXmlProperty
     @OneToMany( targetEntity=Category.class, mappedBy="item" )
     private List<Category> categories=new ArrayList<Category>();
 
     @Getter @Setter
-    @XmlElements({
-            @XmlElement(name="published", type= Date.class),
-            @XmlElement(name="updated",type=Date.class)
-    })
+    @JacksonXmlProperty
     private Date publishedOrUpdated;
 
     @Getter @Setter
-    @XmlElement(name="image")
+    @JacksonXmlProperty
     @ManyToOne
     @JoinColumn(name="id_image")
     private Image image;
 
     @Getter @Setter
-    @XmlElement(name="content")
+    @JacksonXmlProperty
     @ManyToOne
     @JoinColumn(name="id_content")
     private Content content;
 
 
     @Getter @Setter
-    @XmlElements({
-            @XmlElement(name="author", type= Person.class),
-            @XmlElement(name="contributor",type=Person.class)
-    })
-
+    @JacksonXmlProperty
     @OneToMany( targetEntity=Person.class, mappedBy="item" )
     private List<Person> authorOrContributor=new ArrayList<>();
 

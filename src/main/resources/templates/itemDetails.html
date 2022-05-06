@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail des articles</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Article</h1>
+<a th:href="@{/contacts}">Back to Contact List</a>
+<br/><br/>
+<div th:if="${item}">
+    <table border="0">
+        <tr>
+            <td>GUID</td>
+            <td>:</td>
+            <td th:utext="${item.guid}">...</td>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>:</td>
+            <td th:utext="${item.title}">...</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>:</td>
+            <td th:utext="${item.publishedOrUpdated}">...</td>
+        </tr>
+        <tr>
+            <td>Image: type - href - alt - taille</td>
+            <td>:</td>
+            <td th:utext="${item.image.type} +' - '+${item.image.href}+' - ' +${item.image.alt} +' - '+${item.image.length}">...</td>
+        </tr>
+        <tr>
+            <td>Content: type - url</td>
+            <td>:</td>
+            <td th:utext="${item.content.type}+' -'+${item.content.url}">...</td>
+        </tr>
+    </table>
+    <br/><br/>
+    <div th:if="not ${allowDelete}">
+        <a th:href="@{/contacts/{contactId}/edit(contactId=${item.guid})}">Edit</a> |
+        <a th:href="@{/contacts/{contactId}/delete(contactId=${item.guid})}">Delete</a>
+    </div>
+    <form th:if="${allowDelete}" th:action="@{/contacts/{contactId}/delete(contactId=${contact.id})}" method="POST">
+        Delete this contact? <input type="submit" th:value="Yes" />
+    </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+</body>
+</body>
+</html>
