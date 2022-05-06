@@ -40,8 +40,8 @@ public class ItemController {
     @GetMapping(value="/rss22/resume/xml/{guid}", produces= MediaType.APPLICATION_XML_VALUE)
     public Item getItemByGuid(@PathVariable("guid") UUID guid) {
         Item item = itemService.findItemById(guid)
-                .orElseThrow(() -> {throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "l'article avec guid"+guid+"est introuvable"
+                .orElseThrow(() -> {throw new RuntimeException(
+                "l'article avec guid"+guid+"est introuvable"
         );});
         return item;
     }
