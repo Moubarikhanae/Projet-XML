@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlSchemaType;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class ItemListDTO implements Serializable {
 
     @Getter @Setter
     @JacksonXmlProperty
+    @XmlSchemaType(name="date")
     private Date publishedOrUpdated;
 
     public ItemListDTO() {

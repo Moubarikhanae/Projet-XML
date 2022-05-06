@@ -1,5 +1,6 @@
 package fr.univrouen.rss22.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlSchemaType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,30 +35,31 @@ public class Item implements Serializable {
     @Column(length = 64)
     private String title;
 
-    @JacksonXmlProperty
-    @OneToMany( targetEntity=Category.class, mappedBy="item" )
-    private List<Category> categories=new ArrayList<Category>();
 
     @Getter @Setter
     @JacksonXmlProperty
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date publishedOrUpdated;
 
     @Getter @Setter
     @JacksonXmlProperty
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_image")
     private Image image;
 
     @Getter @Setter
     @JacksonXmlProperty
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_content")
     private Content content;
 
+    @JacksonXmlProperty
+    @OneToMany( targetEntity=Category.class, mappedBy="item",cascade = CascadeType.ALL)
+    private List<Category> categories=new ArrayList<Category>();
 
     @Getter @Setter
     @JacksonXmlProperty
-    @OneToMany( targetEntity=Person.class, mappedBy="item" )
+    @OneToMany( targetEntity=Person.class, mappedBy="item",cascade = CascadeType.ALL)
     private List<Person> authorOrContributor=new ArrayList<>();
 
     public Item() {
