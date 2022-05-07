@@ -13,7 +13,8 @@ import java.util.UUID;
 public interface ItemService {
     List<Item> findItems();
     Optional<Item> findItemById(UUID id);
-    void insertItem(Item item);
+    Item insertItem(Item item);
     Optional<Item> findItemByTitle(String title);
-    Optional<Item> findItemByDate(Date date);
+    Optional<Item> findItemByDateAndTitle(Date date,String title);
+    void deleteItem(UUID guid);
 }

@@ -11,9 +11,9 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
-@JacksonXmlRootElement(localName = "Image")
+@JacksonXmlRootElement( localName = "Image" )
 @Entity
-@Table(name = "image")
+@Table( name = "image")
 
 public class Image implements Serializable {
 
@@ -22,19 +22,19 @@ public class Image implements Serializable {
     private long Id;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private TypeImage type;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private String href;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private String alt;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private int length;
 
     public Image() {

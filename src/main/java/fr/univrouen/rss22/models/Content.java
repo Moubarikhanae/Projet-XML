@@ -10,24 +10,22 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 
-@JacksonXmlRootElement(localName = "content")
+@JacksonXmlRootElement( localName = "content" )
 @Entity
-@Table(name="content")
+@Table( name = "content" )
 public class Content implements Serializable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private long Id;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private TypeContent type;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true)
     private String url;
-
-
 
     public Content() {
     }

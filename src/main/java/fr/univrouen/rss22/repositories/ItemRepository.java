@@ -13,6 +13,6 @@ import java.util.UUID;
 public interface ItemRepository extends JpaRepository<Item, UUID> {
     Optional<Item> findByTitle(String title);
 
-    @Query("select i from Item i where i.publishedOrUpdated=?1")
-    Optional<Item> findByDate(Date date);
+    @Query("select i from Item i where i.publishedOrUpdated=?1 and i.title=?2")
+    Optional<Item> findByDateAndTitle(Date date,String title);
 }

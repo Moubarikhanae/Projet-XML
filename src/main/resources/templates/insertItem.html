@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insértion d'un nouvel article</title>
+    <style>
+        label,
+        textarea {
+            font-size: .8rem;
+            letter-spacing: 1px;
+        }
+        textarea {
+            padding: 10px;
+            max-width: 100%;
+            line-height: 1.5;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 1px 1px 1px #999;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function  onSubmit()
+        {
+            fetch('/rss22/insert', {
+                method: "POST",
+                body: document.getElementById("item").value,
+                headers: {"Content-type": "application/xml; charset=UTF-8"}
+            })
+                .then(response => response.text())
+                .then(data =>
+                {
+                    document.documentElement.append(data);
+
+                }
+                )
+                .catch(err => console.log(err));
+            setTimeout(function(){
+                window.location.reload();
+            }, 5000);
+        }
+
+    </script>
+</head>
+<body>
+
+
+<form action="#"  method="post" >
+    <label for="item">Informations sur l'article:</label>
+
+    <textarea id="item" name="item"
+              rows="5" cols="33">
+Ecrivez l'article sous format XML...
+</textarea>
+    <br><br>
+    <input type="button" onclick="onSubmit();" value="Ajouter un article">
+</form>
+</body>
+</html>

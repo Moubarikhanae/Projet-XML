@@ -32,8 +32,8 @@ public class IItemService implements ItemService {
     }
 
     @Override
-    public void insertItem(Item item) {
-        itemRepository.save(item);
+    public Item insertItem(Item item) {
+        return itemRepository.save(item);
     }
 
     @Override
@@ -42,7 +42,14 @@ public class IItemService implements ItemService {
     }
 
     @Override
-    public Optional<Item> findItemByDate(Date date) {
-        return itemRepository.findByDate(date);
+    public Optional<Item> findItemByDateAndTitle(Date date,String title) {
+        return itemRepository.findByDateAndTitle(date,title);
     }
+
+    @Override
+    public void deleteItem(UUID guid) {
+        itemRepository.deleteById(guid);
+    }
+
+
 }

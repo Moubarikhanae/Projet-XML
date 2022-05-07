@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlSchemaType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,43 +22,44 @@ public class Item implements Serializable {
 
     @Getter @Setter
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(length=36,columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
+    @GeneratedValue( generator = "uuid2" )
+    @GenericGenerator( name = "uuid2", strategy = "uuid2" )
+    @Column( length=36, columnDefinition = "VARCHAR(36)" )
+    @Type( type = "uuid-char" )
     @JacksonXmlProperty
     private UUID guid;
 
     @JacksonXmlProperty
     @Getter @Setter
-    @Column(length = 64)
+    @Column( length = 64 )
     private String title;
-
 
     @Getter @Setter
     @JacksonXmlProperty
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat( pattern = "yyyy-MM-dd" )
+    @Temporal(TemporalType.DATE)
     private Date publishedOrUpdated;
 
     @Getter @Setter
     @JacksonXmlProperty
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_image")
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_image" )
     private Image image;
 
     @Getter @Setter
     @JacksonXmlProperty
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_content")
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_content" )
     private Content content;
 
     @JacksonXmlProperty
-    @OneToMany( targetEntity=Category.class, mappedBy="item",cascade = CascadeType.ALL)
+    @Getter @Setter
+    @OneToMany( targetEntity = Category.class, mappedBy = "item", cascade = CascadeType.ALL )
     private List<Category> categories=new ArrayList<Category>();
 
     @Getter @Setter
-    @JacksonXmlProperty
-    @OneToMany( targetEntity=Person.class, mappedBy="item",cascade = CascadeType.ALL)
+    @JacksonXmlProperty(localName="authorOrContributors")
+    @OneToMany( targetEntity = Person.class, mappedBy = "item", cascade = CascadeType.ALL )
     private List<Person> authorOrContributor=new ArrayList<>();
 
     public Item() {

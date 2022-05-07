@@ -7,27 +7,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
 import java.io.Serializable;
 
 
-@JacksonXmlRootElement(localName = "category")
+@JacksonXmlRootElement( localName = "category" )
 @Entity
-@Table(name="category")
+@Table( name = "category" )
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private long Id;
 
     @Getter @Setter
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty( isAttribute = true )
     private String term;
 
     @ManyToOne
     @Getter
     @Setter
-    @JoinColumn(name="id_item")
+    @JoinColumn( name = "id_item" )
     @JsonIgnore
     private Item item;
 

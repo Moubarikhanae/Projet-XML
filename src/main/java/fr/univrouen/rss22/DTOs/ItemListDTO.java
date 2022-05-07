@@ -1,7 +1,7 @@
 package fr.univrouen.rss22.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,7 @@ public class ItemListDTO implements Serializable {
 
     @Getter @Setter
     @JacksonXmlProperty
+    @JsonFormat( pattern = "yyyy-MM-dd" )
     @XmlSchemaType(name="date")
     private Date publishedOrUpdated;
 
